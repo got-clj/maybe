@@ -11,17 +11,25 @@
 
 (defn home-page
   [request]
-  (ring-resp/response "Hej"))
+  (ring-resp/response "<h1>Maybe?!</h1>"))
 
 (defn current-time
   [request]
   (ring-resp/response (str "The current time is " (new java.util.Date))))
 
+(defn echo-request
+  [request]
+  (ring-resp/response (str request)))
+
+
+
 (defroutes routes
   [[["/" {:get home-page}
      ;; Set default interceptors for /about and any other paths under /
      ^:interceptors [(body-params/body-params) bootstrap/html-body]
-     ["/about" {:get about-page}]]]])
+     ["/about" {:get about-page}]
+     ["/time" {:get current-time}]
+     ["/echo" {:get echo-request}]]]])
 
 ;; You can use this fn or a per-request fn via io.pedestal.service.http.route/url-for
 (def url-for (route/url-for-routes routes))
