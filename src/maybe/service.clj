@@ -11,7 +11,11 @@
 
 (defn home-page
   [request]
-  (ring-resp/response "Hello World!"))
+  (ring-resp/response "Hej"))
+
+(defn current-time
+  [request]
+  (ring-resp/response (str "The current time is " (new java.util.Date))))
 
 (defroutes routes
   [[["/" {:get home-page}
